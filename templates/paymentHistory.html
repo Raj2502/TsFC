@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Parent Dashboard Design</title>
+    <link rel="stylesheet" href="static/css/parent.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head> 
+  <body>
+    <div class="sidebar">
+      <div class="logo"></div>
+      <ul class="menu">
+        <li class="active">
+          <a href="/parentDash">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/parentProfile">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="/paymentHistory">
+            <i class="fas fa-chart-bar"></i>
+            <span>Payment History</span>
+          </a>
+        </li>
+        <li>
+          <a href="/children">
+            <i class="fas fa-briefcase"></i>
+            <span>Manage Children</span>
+          </a>
+        </li>
+        <li class="logout">
+          <a href="/">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="main--content">
+      <div class="header--wrapper">
+        <div class="header--title">
+          <span>Parent</span>
+          <h2>Dashboard</h2>
+        </div>
+        <div class="user--info">
+          <div class="search--box">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+          <img src="static/img.png" alt="" />
+        </div>
+      </div>
+      <div class="tabular--wrapper">
+        <h3 class="main--title">Payment Details</h3>
+        <div class="search-filter-container">
+            <input type="text" id="searchInput" placeholder="Search..." />
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Transaction ID</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Amount</th>
+                        <th>Payment Mode</th>
+                        <th>Payment Type</th>
+                        <th>Child Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>TRX001</td>
+                        <td>2024-04-05</td>
+                        <td>12:30 PM</td>
+                        <td>&#8377; 5000</td>
+                        <td>UPI</td>
+                        <td>Monthly Fees</td>
+                        <td>Radha Patel</td>
+                        <td>Failed</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>TRX002</td>
+                        <td>2024-04-06</td>
+                        <td>11:45 AM</td>
+                        <td>&#8377; 2500</td>
+                        <td>Credit Card</td>
+                        <td>Exam Fees</td>
+                        <td>Mohit Patel</td>
+                        <td>Successful</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>TRX003</td>
+                        <td>2024-04-07</td>
+                        <td>10:15 AM</td>
+                        <td>&#8377; 3750</td>
+                        <td>Debit Card</td>
+                        <td>Semester Fees</td>
+                        <td>Priya Patel</td>
+                        <td>Aborted</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="9">Total: 3 children</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    
+    
+    
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const rows = document.querySelectorAll("tbody tr");
+
+        searchInput.addEventListener("input", function () {
+          const searchTerm = searchInput.value.toLowerCase();
+          filterRows(searchTerm);
+        });
+
+        function filterRows(searchTerm) {
+          rows.forEach((row) => {
+            const textContent = row.textContent.toLowerCase();
+            if (textContent.includes(searchTerm)) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Parent Dashboard Design</title>
+    <link rel="stylesheet" href="static/css/parent.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo"></div>
+      <ul class="menu">
+        <li class="active">
+          <a href="/parentDash">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/parentProfile">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="/paymentHistory">
+            <i class="fas fa-chart-bar"></i>
+            <span>Payment History</span>
+          </a>
+        </li>
+        <li>
+          <a href="/children">
+            <i class="fas fa-briefcase"></i>
+            <span>Manage Children</span>
+          </a>
+        </li>
+        <li class="logout">
+          <a href="/">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="main--content">
+      <div class="header--wrapper">
+        <div class="header--title">
+          <span>Parent</span>
+          <h2>Dashboard</h2>
+        </div>
+        <div class="user--info">
+          <div class="search--box">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+          <img src="static/img.png" alt="" />
+        </div>
+      </div>
+
+      <div class="tabular--wrapper">
+        <h3 class="main--title">Children Details</h3>
+        <div class="search-filter-container">
+            <input type="text" id="searchInput" placeholder="Search..." />
+            <button id="addChildButton" class="quote btn btn-lg btn-warning">Add Child</button>
+            <div id="quote_modal" class="QuoteModal">
+                <div class="popup_modal">
+                    <div>
+                        <a href="#close" title="Close" class="quoteclose">X</a>
+                        <h3 class="text-center">Add Child</h3>
+                    </div>
+                    <div>
+                        <form role="form" action="/addchild" method="POST" class="text-center">
+                            <div class="form-group">
+                                <input type="text" required class="form-control" placeholder="First Name" name="FirstName" tabindex="1">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" required class="form-control" placeholder="Middle Name" name ="MiddleName" tabindex="2">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" required class="form-control" placeholder="Last Name" name = "LastName" tabindex="3">
+                            </div>
+                            <div class="form-group">
+                                <select id="schoolNameSelect" class="form-control" name = "schoolname" onchange="updateschoolID()">
+                                    <option value="">-- Select School --</option>
+                                    {% for school in schools %}
+                                    <option value="{{ school.Name }}" data-school-id = "{{ school.ID }} ">{{school.Name}} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select id="classSelect" class="form-control" name="classname">
+                                    <option value="">-- Select Class --</option>
+                                    {% for grade in grades %}
+                                    <option value="{{ grade.className }}"> {{ grade.className }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" required class="form-control" placeholder="School ID"  name="schoolid" id="schoolIDInput" tabindex="6" readonly>
+                            </div>
+                            <button type="submit" class="btn btn-warning">Submit</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-container" >
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>School ID</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Class Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for student in student_data %}
+                    <tr>
+                        <td>{{student[0]}}</td>
+                        <td>{{student[1]}}</td>
+                        <td>{{student[2]}}</td>
+                        <td>{{student[3]}}</td>
+                        <td>{{student[4]}}</td>
+                        <td>{{student[5]}}</td>
+                        <td>
+                            <button class="edit-button" data-text="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="delete-button" data-text="Delete"><i class="fas fa-trash-alt" style="color: #f50000;"></i></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">Total: 3 children</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+              
+</div>
+    
+    </div>
+
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.getElementById("searchInput");
+      const rows = document.querySelectorAll("tbody tr");
+      const addChildButton = document.getElementById("addChildButton");
+      const modal = document.getElementById("quote_modal");
+      const closeButton = document.querySelector(".quoteclose");
+
+      
+
+    searchInput.addEventListener("input", function () {
+        const searchTerm = searchInput.value.toLowerCase();
+        filterRows(searchTerm);
+    });
+
+    addChildButton.addEventListener("click", function () {
+        modal.style.display = "block";
+        
+    });
+
+    closeButton.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    function filterRows(searchTerm) {
+        rows.forEach((row) => {
+            const textContent = row.textContent.toLowerCase();
+            if (textContent.includes(searchTerm)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+});
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const rows = document.querySelectorAll("tbody tr");
+
+        searchInput.addEventListener("input", function () {
+          const searchTerm = searchInput.value.toLowerCase();
+          filterRows(searchTerm);
+        });
+
+        function filterRows(searchTerm) {
+          rows.forEach((row) => {
+            const textContent = row.textContent.toLowerCase();
+            if (textContent.includes(searchTerm)) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        }
+      });
+      function updateschoolID(){
+        var selectedSchool = document.getElementById("schoolNameSelect").value;
+        var schoolIDInput = document.getElementById('schoolIDInput');
+        var selectedOption = document.getElementById("schoolNameSelect").options[document.getElementById("schoolNameSelect").selectedIndex];
+        var schoolid = selectedOption.getAttribute('data-school-id');
+        schoolIDInput.value = schoolid
+      }
+    </script>
+  </body>
+</html>

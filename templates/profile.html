@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo"></div>
+      <ul class="menu">
+        <li class="active">
+          <a href="dash.html">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-chart-bar"></i>
+            <span>Statistics</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-briefcase"></i>
+            <span>Staff</span>
+          </a>
+        </li>
+        <li>
+          <a href="settings.html">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+        <li class="logout">
+          <a href="#">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="main--content">
+      <div class="header--wrapper">
+        <div class="header--title">
+          <span>Admin</span>
+          <h2>Dashboard</h2>
+        </div>
+        <div class="user--info">
+          <div class="search--box">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+          <img src="img.png" alt="" />
+        </div>
+      </div>
+    <style>
+        .formbody {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: center;
+            background-color: #f4f4f4;
+        }
+        form {
+            max-width: 400px; /* Reduced max-width */
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .formtitle {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        h2 {
+            text-align: left;
+            margin-bottom: 10px;
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        input[id="username"],
+        input[id="firstName"],
+        input[id="lastName"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"] {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin: 0 auto 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input[type="submit"],
+        .button {
+            padding: 10px;
+            width: 45%; /* Adjusted width */
+            margin-right: 4px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover,
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .button.cancel {
+            background-color: #6c757d;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+        .icon {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="formbody">
+        
+    <h1 class="formtitle"><i class="fas fa-user-circle icon"></i>User Profile</h1>
+    <form id="profileForm" action="#" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="contactNumber">Contact Number:</label>
+        <input type="tel" id="contactNumber" name="contactNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" required>
+
+        <div class="button-container">
+            <input type="submit" class="button" value="Update Profile">
+            <input type="button" class="button cancel" value="Cancel">
+        </div>
+
+        <hr>
+
+        <h2><i class="fas fa-key icon"></i>Change Password</h2>
+        <label for="password">New Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <div class="button-container">
+            <input type="submit" class="button" value="Update Password">
+            <input type="button" class="button cancel" value="Cancel">
+        </div>
+    </form>
+    </div>
+</body>
+</html>

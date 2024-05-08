@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <ul class="menu">
+        <li class="active">
+          <a href="dash.html">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="profile.html">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-chart-bar"></i>
+            <span>Statistics</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-briefcase"></i>
+            <span>Staff</span>
+          </a>
+        </li>
+        <li>
+          <a href="settings.html">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+        <li class="logout">
+          <a href="#">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="main--content">
+      <div class="header--wrapper">
+        <div class="header--title">
+          <span>Admin</span>
+          <h2>Dashboard</h2>
+        </div>
+        <div class="user--info">
+          <div class="search--box">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+          <img src="img.png" alt="" />
+        </div>
+      </div>
+      <div class="card--container">
+        <h3 class="main--title">Upload Student Data</h3>
+        <div class="card--wrapper">
+
+            <div class="student--card light-red">
+                <div class="card--header">
+                  <div class="amount">
+                    <span class="amount-value"> Student Details</span>
+                  </div>
+                </div>
+                <div class="buttons">
+                    <button onclick="handleUpload()">Upload &nbsp; <i class="fa-solid fa-upload" style="color: #ffffff;"></i></button>
+                    <button>Download &nbsp; <i class="fa-solid fa-download" style="color: #ffffff;"></i></button>
+                    <progress class="upload-progress" value="0" max="100" style="display: none;"></progress>
+                </div>
+                
+              </div>
+              
+              <div class="student--card light-red">
+                <div class="card--header">
+                  <div class="amount">
+                    <span class="amount-value"> Grade Details</span>
+                  </div>
+                </div>
+                <div class="buttons">
+                    <button>Upload &nbsp; <i class="fa-solid fa-upload" style="color: #ffffff;"></i></button>
+                    <button>Download &nbsp; <i class="fa-solid fa-download" style="color: #ffffff;"></i></button>
+                </div>
+              </div>
+
+              <div class="student--card light-red">
+                <div class="card--header">
+                  <div class="amount">
+                    <span class="amount-value"> Section Details</span>
+                  </div>
+                </div>
+                <div class="buttons">
+                    <button>Upload &nbsp; <i class="fa-solid fa-upload" style="color: #ffffff;"></i></button>
+                    <button>Download &nbsp; <i class="fa-solid fa-download" style="color: #ffffff;"></i></button>
+                </div>
+              </div>
+
+              <div class="student--card light-red">
+                <div class="card--header">
+                  <div class="amount">
+                    <span class="amount-value"> Freeship Details</span>
+                  </div>
+                </div>
+                <div class="buttons">
+                    <button>Upload &nbsp; <i class="fa-solid fa-upload" style="color: #ffffff;"></i></button>
+                    <button>Download &nbsp; <i class="fa-solid fa-download" style="color: #ffffff;"></i></button>
+                </div>
+              </div>
+
+              <div class="student--card light-red">
+                <div class="card--header">
+                  <div class="amount">
+                    <span class="amount-value"> Fees Details</span>
+                  </div>
+                </div>
+                <div class="buttons">
+                    <button>Upload &nbsp; <i class="fa-solid fa-upload" style="color: #ffffff;"></i></button>
+                    <button>Download &nbsp; <i class="fa-solid fa-download" style="color: #ffffff;"></i></button>
+                </div>
+              </div>
+
+            
+        </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const rows = document.querySelectorAll("tbody tr");
+
+        searchInput.addEventListener("input", function () {
+          const searchTerm = searchInput.value.toLowerCase();
+          filterRows(searchTerm);
+        });
+
+        function filterRows(searchTerm) {
+          rows.forEach((row) => {
+            const textContent = row.textContent.toLowerCase();
+            if (textContent.includes(searchTerm)) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        }
+      });
+
+      function handleUpload() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.xlsx, .xls'; // specify the file types allowed, e.g., images
+    fileInput.onchange = function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const progressBar = document.querySelector('.upload-progress');
+            progressBar.style.display = 'block'; // Show the progress bar
+            uploadFile(file, progressBar);
+        }
+    };
+    fileInput.click();
+}
+
+function uploadFile(file, progressBar) {
+    // Perform the file upload using AJAX or fetch API
+    // Example:
+    // const formData = new FormData();
+    // formData.append('file', file);
+    // fetch('upload-url', {
+    //     method: 'POST',
+    //     body: formData,
+    //     // Add any additional headers if needed
+    // })
+    // .then(response => {
+    //     // Handle the response
+    // })
+    // .catch(error => {
+    //     // Handle errors
+    // });
+
+    // Simulating upload progress (remove this in actual implementation)
+    let progress = 0;
+    const interval = setInterval(function () {
+        progress += 10;
+        progressBar.value = progress;
+        if (progress >= 100) {
+            clearInterval(interval);
+            progressBar.style.display = 'none'; // Hide the progress bar once upload is complete
+        }
+    }, 500);
+
+}
+
+    </script>
+  </body>
+</html>
